@@ -10,7 +10,8 @@ public class ItemDoPedido {
 	
 	@EmbeddedId
 	private ItemDoPedidoPK id = new ItemDoPedidoPK();
-	
+
+
 	private Integer quantidade;
 	private Double preco;
 	

@@ -1,35 +1,35 @@
 package com.senai.ecommerce.entities;
 
-import java.time.Instant;
+import jakarta.persistence.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import java.time.Instant;
 
 @Entity
 @Table(name = "tb_pagamento")
 public class Pagamento {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private Instant momento;
+	private Long id; // id do pedido
 
 	@OneToOne
-	@MapsId
+	@MapsId // mapeia o id do pagamento com o id do pedido
 	private Pedido pedido;
-	
-	public Pagamento() {
 
+	private Instant momento;
+
+	public Pagamento() {
 	}
 
-	public Pagamento(Long id, Instant momento) {
+	public Pagamento(Long id, Pedido pedido, Instant momento) {
 		this.id = id;
+		this.pedido = pedido;
 		this.momento = momento;
+	}
+
+	public Pagamento(Pedido pedido) {
+		this.id = pedido.getId();
+		this.momento = Instant.now();
+		this.pedido = pedido;
 	}
 
 	public Long getId() {
@@ -48,4 +48,11 @@ public class Pagamento {
 		this.momento = momento;
 	}
 
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
 }

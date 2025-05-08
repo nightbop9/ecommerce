@@ -1,12 +1,11 @@
 package com.senai.ecommerce.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import com.senai.ecommerce.dto.UsuarioDTO;
 import com.senai.ecommerce.entities.Usuario;
 import com.senai.ecommerce.repositories.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService {

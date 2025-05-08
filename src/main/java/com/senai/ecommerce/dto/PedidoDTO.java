@@ -1,13 +1,13 @@
 package com.senai.ecommerce.dto;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.senai.ecommerce.entities.ItemDoPedido;
 import com.senai.ecommerce.entities.Pedido;
 import com.senai.ecommerce.entities.StatusDoPedido;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PedidoDTO {
 	
@@ -17,10 +17,12 @@ public class PedidoDTO {
 	private StatusDoPedido status;
 	@JsonProperty("clienteId")
 	private Long clienteId;
+	private List<ItemDoPedidoDTO> items = new ArrayList<>();
 
 	public PedidoDTO() {
 
 	}
+
 
 	public PedidoDTO(Long id, Instant momento, StatusDoPedido status, Long clienteId) {
 		this.id = id;
@@ -29,11 +31,14 @@ public class PedidoDTO {
 		this.clienteId = clienteId;
 	}
 
-	public PedidoDTO(Pedido entity) {
-		id = entity.getId();
-		momento = entity.getMomento();
-		status = entity.getStatus();
-		clienteId = entity.getCliente().getId();	
+	public PedidoDTO(Pedido pedido) {
+		id = pedido.getId();
+		momento = pedido.getMomento();
+		status = pedido.getStatus();
+		clienteId = pedido.getCliente().getId();
+		for(ItemDoPedido item : pedido.getItems()) {
+			items.add(new ItemDoPedidoDTO(item));
+		}
 	}
 
 	public Long getId() {
@@ -66,5 +71,13 @@ public class PedidoDTO {
 
 	public void setClienteId(Long clienteId) {
 		this.clienteId = clienteId;
+	}
+
+	public List<ItemDoPedidoDTO> getItems() {
+		return items;
+	}
+
+	public void setItems(List<ItemDoPedidoDTO> items) {
+		this.items = items;
 	}
 }

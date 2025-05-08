@@ -1,10 +1,10 @@
 package com.senai.ecommerce.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.senai.ecommerce.entities.Categoria;
 import com.senai.ecommerce.entities.Produto;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProdutoDTO {
 
