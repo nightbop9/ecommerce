@@ -1,13 +1,15 @@
 package com.senai.ecommerce.entities;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "tb_usuario")
-public class Usuario {
+public class Usuario implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +21,12 @@ public class Usuario {
 	
 	@OneToMany(mappedBy= "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
+
+	@ManyToMany
+	@JoinTable(name = "tb_usuario_role",
+			joinColumns = @JoinColumn(name = "usuario_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
 
 	public Usuario() {
 
@@ -72,4 +80,18 @@ public class Usuario {
 		this.senha = senha;
 	}
 
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return roles;
+	}
+
+	@Override
+	public String getPassword() {
+		return "";
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
 }
